@@ -9,7 +9,7 @@ const {
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -24,15 +24,23 @@ const {
       rel="stylesheet"
     />
 
-    <!-- Apply saved theme ASAP to avoid flash -->
+    <!-- Theme: default DARK + persist across navigation -->
     <script>
       (() => {
+        const KEY = "theme";
+        const DEFAULT = "dark"; // <-- dark por defecto
         try {
-          const saved = localStorage.getItem("theme");
-          const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-          const theme = saved ?? (prefersDark ? "dark" : "light");
+          const saved = localStorage.getItem(KEY);
+          const theme = (saved === "light" || saved === "dark") ? saved : DEFAULT;
+
+          // si no había guardado, lo guardamos para que se mantenga siempre
+          if (!saved) localStorage.setItem(KEY, theme);
+
           document.documentElement.dataset.theme = theme;
-        } catch {}
+        } catch {
+          // si localStorage falla, al menos dejamos dark (ya viene en <html data-theme="dark">)
+          document.documentElement.dataset.theme = DEFAULT;
+        }
       })();
     </script>
   </head>

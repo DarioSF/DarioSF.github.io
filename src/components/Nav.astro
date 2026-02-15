@@ -20,7 +20,7 @@ function isActive(href: string) {
 
   <div class="right">
     <ul class="links">
-      {links.map(l => (
+      {links.map((l) => (
         <li>
           <a href={l.href} aria-current={isActive(l.href) ? "page" : undefined}>
             {l.label}
@@ -30,31 +30,40 @@ function isActive(href: string) {
     </ul>
 
     <button class="btn" id="theme-toggle" type="button" aria-label="Cambiar tema">
-      Theme
+      Dark
     </button>
   </div>
 </nav>
 
 <script is:inline>
   (function () {
+    const KEY = "theme";
+    const DEFAULT = "dark";
     const btn = document.getElementById("theme-toggle");
     if (!btn) return;
 
-    function currentTheme() {
-      return document.documentElement.dataset.theme || "light";
+    function getTheme() {
+      try {
+        const saved = localStorage.getItem(KEY);
+        if (saved === "light" || saved === "dark") return saved;
+      } catch {}
+      const fromDom = document.documentElement.dataset.theme;
+      if (fromDom === "light" || fromDom === "dark") return fromDom;
+      return DEFAULT;
     }
 
-    function setTheme(theme) {
+    function apply(theme) {
       document.documentElement.dataset.theme = theme;
-      try { localStorage.setItem("theme", theme); } catch {}
+      try { localStorage.setItem(KEY, theme); } catch {}
       btn.textContent = theme === "dark" ? "Dark" : "Light";
+      btn.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
     }
 
-    // Init label
-    setTheme(currentTheme());
+    apply(getTheme());
 
     btn.addEventListener("click", () => {
-      setTheme(currentTheme() === "dark" ? "light" : "dark");
+      const next = getTheme() === "dark" ? "light" : "dark";
+      apply(next);
     });
   })();
 </script>
