@@ -2,13 +2,52 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="CV | DarioSF">
+<BaseLayout title="CV | DarioSF" description="Currículum (en construcción)">
   <h1>CV</h1>
-  <p>Lorem ipsum: aquí irá tu CV en versión web.</p>
 
-  <h2>Descarga PDF</h2>
-  <p>
-    (Cuando lo tengas) sube el archivo a <code>public/cv.pdf</code> y enlázalo aquí:
-    <!-- <a href="/cv.pdf" target="_blank" rel="noopener">Ver CV (PDF)</a> -->
+  <p class="muted">
+    Este CV está en construcción. El objetivo es mantener una versión web clara y un PDF descargable que iré actualizando.
   </p>
+
+  <section class="card">
+    <h2>Educación</h2>
+    <ul>
+      <li>
+        <strong>Ingeniería Informática</strong> — Universidad de Alicante (itinerario de Computación) — <em>en curso</em>.
+      </li>
+    </ul>
+
+    <h2>Skills</h2>
+    <ul>
+      <li><strong>C++</strong> (avanzado)</li>
+      <li>Buen dominio de <strong>Python</strong> y experiencia con múltiples lenguajes: Scheme, C, C#, PHP, ensamblador</li>
+      <li>Interés y enfoque en software técnico: reproducibilidad, documentación y validación cuando aplique</li>
+    </ul>
+
+    <h2>Proyectos</h2>
+    <p class="muted">
+      Los proyectos se recogen en este portfolio y se irán ampliando.
+    </p>
+    <p><a href="/projects">Ver proyectos →</a></p>
+
+    <h2>Experiencia laboral</h2>
+    <ul>
+      <li>
+        <strong>Auxiliar administrativo (ámbito sanitario)</strong>
+        <ul>
+          <li>Gestión de información con criterio de calidad, precisión y confidencialidad.</li>
+          <li>Coordinación y comunicación con distintos perfiles, priorizando tareas y resolviendo incidencias.</li>
+          <li>Trabajo metódico bajo carga: seguimiento de procesos, control de errores y mejora incremental del flujo.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>Descarga PDF</h2>
+    <p class="muted">
+      Placeholder: cuando tengas el PDF, súbelo como <code>public/cv.pdf</code>.
+    </p>
+    <p>
+      <a href="/cv.pdf" target="_blank" rel="noopener">Ver CV (PDF)</a>
+    </p>
+  </section>
 </BaseLayout>

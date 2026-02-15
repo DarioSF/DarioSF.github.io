@@ -7,18 +7,135 @@ const featured = projects.filter((p) => p.data.featured);
 featured.sort((a, b) => b.data.date.localeCompare(a.data.date));
 ---
 
-<BaseLayout title="DarioSF | Portfolio" description="Portfolio en construcción">
-  <h1>Portfolio (en construcción)</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</p>
+<BaseLayout title="DarioSF | Portfolio" description="Proyectos de ingeniería orientados a aeroespacial y aerodinámica (en construcción)">
+  <section class="hero">
+    <h1>Darío Simón Franco</h1>
+    <p class="lead muted">
+      Estudiante de Ingeniería Informática (itinerario de Computación) en la Universidad de Alicante.
+      Estoy empezando a construir proyectos con aplicación en el sector aeroespacial, con foco en simulación y aerodinámica
+      (y una segunda vertiente de interés en aerodinámica aplicada al motorsport).
+    </p>
+  </section>
 
-  <h2>Featured projects</h2>
-  <ul>
-    {featured.map((p) => (
-      <li>
-        <a href={`/projects/${p.slug}`}>{p.data.title}</a> — {p.data.summary}
-      </li>
-    ))}
-  </ul>
+  <section class="grid">
+    <div class="card">
+      <h2>Focus</h2>
+      <p class="muted">
+        Portfolio técnico en crecimiento. Prioridad: proyectos reproducibles, medibles y documentados como casos de estudio.
+      </p>
 
-  <p><a href="/projects">Ver todos los proyectos →</a></p>
+      <ul>
+        <li><strong>Áreas:</strong> aerodinámica, simulación, sistemas embebidos orientados a telemetría.</li>
+        <li><strong>Enfoque:</strong> diseño robusto, trazabilidad, validación cuando aplique, documentación clara.</li>
+        <li><strong>Objetivo:</strong> preparar una trayectoria hacia I+D y, a futuro, un doctorado empresarial en el sector.</li>
+      </ul>
+
+      <p class="muted">
+        Nota: este sitio está “en construcción”; lo estoy dejando listo para cuando finalice el grado y empiece a presentarlo formalmente.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Featured projects</h2>
+
+      <ul class="list">
+        {featured.map((p) => (
+          <li class="item">
+            <div class="top">
+              <a class="name" href={`/projects/${p.slug}`}>{p.data.title}</a>
+              <span class={`status status--${p.data.status}`}>
+                {p.data.status}
+              </span>
+            </div>
+            <div class="muted meta">{p.data.date} · {p.data.tags.join(", ")}</div>
+            <div class="muted">{p.data.summary}</div>
+          </li>
+        ))}
+      </ul>
+
+      <p class="more">
+        <a href="/projects">Browse all projects →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="card note">
+    <h2>Contact</h2>
+    <p class="muted">
+      Si eres reclutador/a o técnico/a y quieres comentar alguno de los proyectos (o proponer colaboración),
+      aquí tienes el punto de entrada.
+    </p>
+    <p><a href="/contact">Go to contact →</a></p>
+  </section>
 </BaseLayout>
+
+<style>
+  .hero{
+    padding: 10px 0 18px;
+  }
+  .lead{
+    font-size: 1.05rem;
+    max-width: 75ch;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+
+  @media (min-width: 980px){
+    .grid{
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .list{
+    list-style:none;
+    padding:0;
+    margin: 10px 0 0;
+    display:flex;
+    flex-direction:column;
+    gap: 12px;
+  }
+
+  .item{
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+  .item:first-child{
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 10px;
+  }
+
+  .name{
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+  }
+  .name:hover{
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  .meta{
+    font-size: .9rem;
+    margin-top: 4px;
+  }
+
+  .more{
+    margin-top: 14px;
+  }
+
+  .note{
+    margin-top: 14px;
+  }
+</style>
