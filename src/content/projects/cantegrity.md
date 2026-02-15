@@ -26,10 +26,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. (Aquí explicarás el �
 ## Resultados
 
 Lorem ipsum (aquí irán gráficas, tablas, capturas).
-<figure>
-  <img src="/img/cantegrity/placeholder.png" alt="Lorem ipsum" />
-  <figcaption>Figure 1 — Lorem ipsum dolor sit amet, consectetur adipiscing elit.</figcaption>
-</figure>
+
+![Lorem ipsum](/img/cantegrity/placeholder.png)
+
+*Figure 1 — Lorem ipsum dolor sit amet, consectetur adipiscing elit.*
 
 ## Validación y limitaciones
 

@@ -12,37 +12,102 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { Content } = await project.render();
+const { Content, headings } = await project.render();
 
 const statusLabel = {
   "concept": "Concept",
   "in-progress": "In progress",
   "completed": "Completed",
 };
+
+const toc = (headings ?? []).filter((h) => h.depth >= 2 && h.depth <= 3);
+function slugify(s: string) {
+  return s
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
 ---
 
 <BaseLayout
   title={`${project.data.title} | DarioSF`}
   description={project.data.summary}
 >
-  <article class="article">
-    <p><a href="/projects">← Volver a Projects</a></p>
+  <div class="layout">
+    <article class="article">
+      <p class="back"><a href="/projects">← Volver a Projects</a></p>
 
-    <header class="head">
-      <h1>{project.data.title}</h1>
-      <p class="muted">{project.data.summary}</p>
-      <ProjectMeta project={project} statusLabel={statusLabel} />
-    </header>
+      <header class="head">
+        <h1>{project.data.title}</h1>
+        <p class="muted">{project.data.summary}</p>
+        <ProjectMeta project={project} statusLabel={statusLabel} />
+      </header>
 
-    <hr />
+      <hr />
 
-    <Content />
-  </article>
+      <Content />
+    </article>
+
+    {toc.length > 0 && (
+      <aside class="toc card" aria-label="Tabla de contenidos">
+        <div class="toc-title muted">On this page</div>
+        <nav>
+          <ol>
+            {toc.map((h) => (
+              <li class={`d${h.depth}`}>
+                <a href={`#${h.slug ?? slugify(h.text)}`}>{h.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      </aside>
+    )}
+  </div>
 </BaseLayout>
 
 <style>
-  .article { max-width: 820px; }
-  .head { margin-top: 10px; }
-  .meta { display:flex; gap: 10px; align-items:center; margin-top: 10px; }
-  .links { margin-top: 14px; }
+  .layout{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: start;
+  }
+
+  @media (min-width: 980px){
+    .layout{
+      grid-template-columns: minmax(0, 1fr) 280px;
+    }
+  }
+
+  .article{ max-width: 820px; }
+  .back{ margin: 0 0 10px; }
+
+  .toc{
+    position: sticky;
+    top: 16px;
+    padding: 14px 14px;
+  }
+
+  .toc-title{
+    font-size: .85rem;
+    margin-bottom: 8px;
+  }
+
+  .toc ol{
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .toc li{ margin: 6px 0; }
+  .toc li.d3{ margin-left: 10px; }
+
+  .toc a{
+    color: var(--text);
+    text-decoration: none;
+  }
+  .toc a:hover{
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
 </style>
