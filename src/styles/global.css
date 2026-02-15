@@ -1,0 +1,126 @@
+/* ---------- Theme tokens (Engineering Journal) ---------- */
+:root{
+  color-scheme: light dark;
+
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+  --font-serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, "Georgia", serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Sizing */
+  --container: 980px;
+  --radius: 12px;
+
+  /* Light (default) */
+  --bg: #fbfbf8;
+  --surface: #ffffff;
+  --text: #141414;
+  --muted: #5b5b5b;
+  --border: rgba(20,20,20,.12);
+
+  /* Accent (journal-like) */
+  --accent: #0b5fff;   /* azul serio */
+  --accent-2: #0a3b88;
+
+  /* Links */
+  --link: var(--accent);
+  --link-hover: var(--accent-2);
+
+  /* Shadows */
+  --shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+/* Dark theme */
+:root[data-theme="dark"]{
+  --bg: #0f1115;
+  --surface: #141824;
+  --text: #e9e9ea;
+  --muted: #b6b6b8;
+  --border: rgba(233,233,234,.14);
+
+  --accent: #7db4ff;
+  --accent-2: #b7d4ff;
+
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+/* ---------- Base ---------- */
+html, body { height: 100%; }
+body{
+  margin:0;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.container{
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Headings: serif, journal vibe */
+h1, h2, h3{
+  font-family: var(--font-serif);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+h1{ font-size: clamp(2.2rem, 3vw, 3rem); margin: 0 0 10px; }
+h2{ font-size: 1.6rem; margin: 34px 0 10px; }
+h3{ font-size: 1.2rem; margin: 24px 0 8px; }
+
+p{ margin: 0 0 14px; color: var(--text); }
+small, .muted{ color: var(--muted); }
+
+/* Links: subtle underline */
+a{
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+a:hover{ color: var(--link-hover); }
+
+/* “Paper” blocks */
+.card{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 18px;
+}
+
+/* Inline code */
+code{
+  font-family: var(--mono);
+  font-size: 0.95em;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+/* Horizontal rule */
+hr{
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 26px 0;
+}
+
+/* Lists */
+ul{ padding-left: 18px; }
+li{ margin: 6px 0; }
+
+/* Buttons (theme toggle) */
+.btn{
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.btn:hover{
+  border-color: color-mix(in srgb, var(--border) 40%, var(--text));
+}

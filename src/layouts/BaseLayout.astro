@@ -1,4 +1,5 @@
 ---
+import "../styles/global.css";
 import Nav from "../components/Nav.astro";
 
 const {
@@ -14,26 +15,45 @@ const {
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
+
+    <!-- Apply saved theme ASAP to avoid flash -->
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem("theme");
+          const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const theme = saved ?? (prefersDark ? "dark" : "light");
+          document.documentElement.dataset.theme = theme;
+        } catch {}
+      })();
+    </script>
   </head>
+
   <body>
-    <header>
+    <header class="header">
       <div class="container">
         <Nav />
       </div>
     </header>
 
-    <main class="container">
+    <main class="container main">
       <slot />
     </main>
 
-    <footer class="container">
-      <small>© {new Date().getFullYear()} DarioSF — Lorem ipsum</small>
+    <footer class="footer">
+      <div class="container">
+        <small class="muted">© {new Date().getFullYear()} DarioSF — Lorem ipsum</small>
+      </div>
     </footer>
   </body>
 </html>
 
 <style>
-  .container { max-width: 980px; margin: 0 auto; padding: 0 16px; }
-  main { padding: 24px 0 64px; }
-  footer { padding: 24px 16px; border-top: 1px solid #ddd; }
+  .header{
+    border-bottom: 1px solid var(--border);
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+  }
+  .main{ padding: 28px 0 64px; }
+  .footer{ border-top: 1px solid var(--border); padding: 22px 0; }
 </style>

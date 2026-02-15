@@ -7,17 +7,96 @@ projects.sort((a, b) => b.data.date.localeCompare(a.data.date));
 ---
 
 <BaseLayout title="Projects | DarioSF" description="Proyectos personales (en construcción)">
-  <h1>Projects</h1>
-  <p>Lorem ipsum: aquí irá una descripción breve orientada a aeroespacial/aerodinámica.</p>
+  <header class="page-header">
+    <h1>Projects</h1>
+    <p class="muted">
+      Lorem ipsum: aquí irá una descripción breve orientada a aeroespacial/aerodinámica.
+    </p>
+  </header>
 
-  <ul>
+  <ul class="grid">
     {projects.map((p) => (
-      <li>
-        <a href={`/projects/${p.slug}`}>{p.data.title}</a>
-        <div><small>{p.data.date} · {p.data.status}</small></div>
-        <div><small>Tags: {p.data.tags.join(", ")}</small></div>
-        <p>{p.data.summary}</p>
+      <li class="card">
+        <div class="top">
+          <h2 class="title">
+            <a href={`/projects/${p.slug}`}>{p.data.title}</a>
+          </h2>
+
+          <div class="meta muted">
+            <span>{p.data.date}</span>
+            <span class="dot">·</span>
+            <span>{p.data.status}</span>
+          </div>
+        </div>
+
+        <p class="summary">{p.data.summary}</p>
+
+        <div class="tags muted">
+          <span>Tags:</span>
+          <span>{p.data.tags.join(", ")}</span>
+        </div>
+
+        <div class="actions">
+          <a href={`/projects/${p.slug}`}>Read case study →</a>
+        </div>
       </li>
     ))}
   </ul>
 </BaseLayout>
+
+<style>
+  .page-header {
+    margin-bottom: 18px;
+  }
+
+  /* List reset + simple responsive grid */
+  .grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .title {
+    margin: 0 0 6px;
+    font-size: 1.25rem;
+  }
+
+  .title a {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .title a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  .meta {
+    font-size: 0.9rem;
+  }
+
+  .dot {
+    margin: 0 6px;
+  }
+
+  .summary {
+    margin: 10px 0 12px;
+  }
+
+  .tags {
+    font-size: 0.9rem;
+  }
+
+  .actions {
+    margin-top: 14px;
+  }
+</style>

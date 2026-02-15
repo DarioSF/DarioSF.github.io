@@ -1,5 +1,6 @@
 ---
 const { pathname } = Astro.url;
+
 const links = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
@@ -14,21 +15,74 @@ function isActive(href: string) {
 }
 ---
 
-<nav>
-  <a href="/" aria-label="Inicio">DarioSF</a>
-  <ul>
-    {links.map(l => (
-      <li>
-        <a href={l.href} aria-current={isActive(l.href) ? "page" : undefined}>
-          {l.label}
-        </a>
-      </li>
-    ))}
-  </ul>
+<nav class="nav">
+  <a class="brand" href="/" aria-label="Inicio">DarioSF</a>
+
+  <div class="right">
+    <ul class="links">
+      {links.map(l => (
+        <li>
+          <a href={l.href} aria-current={isActive(l.href) ? "page" : undefined}>
+            {l.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <button class="btn" id="theme-toggle" type="button" aria-label="Cambiar tema">
+      Theme
+    </button>
+  </div>
 </nav>
 
+<script is:inline>
+  (function () {
+    const btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+
+    function currentTheme() {
+      return document.documentElement.dataset.theme || "light";
+    }
+
+    function setTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+      try { localStorage.setItem("theme", theme); } catch {}
+      btn.textContent = theme === "dark" ? "Dark" : "Light";
+    }
+
+    // Init label
+    setTheme(currentTheme());
+
+    btn.addEventListener("click", () => {
+      setTheme(currentTheme() === "dark" ? "light" : "dark");
+    });
+  })();
+</script>
+
 <style>
-  nav { display:flex; justify-content:space-between; align-items:center; padding:16px 0; }
-  ul { display:flex; gap:12px; list-style:none; padding:0; margin:0; }
-  a[aria-current="page"] { font-weight:700; text-decoration:underline; }
+  .nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding: 14px 0;
+    gap: 16px;
+  }
+  .brand{
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    text-decoration: none;
+    color: var(--text);
+  }
+  .right{ display:flex; align-items:center; gap: 14px; }
+  .links{
+    display:flex;
+    gap: 14px;
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  a[aria-current="page"]{
+    font-weight: 700;
+    text-decoration-thickness: 2px;
+  }
 </style>
