@@ -1,0 +1,39 @@
+---
+import Nav from "../components/Nav.astro";
+
+const {
+  title = "Portfolio",
+  description = "Portfolio en construcción",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <Nav />
+      </div>
+    </header>
+
+    <main class="container">
+      <slot />
+    </main>
+
+    <footer class="container">
+      <small>© {new Date().getFullYear()} DarioSF — Lorem ipsum</small>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .container { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+  main { padding: 24px 0 64px; }
+  footer { padding: 24px 16px; border-top: 1px solid #ddd; }
+</style>

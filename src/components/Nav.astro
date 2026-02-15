@@ -1,0 +1,34 @@
+---
+const { pathname } = Astro.url;
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
+  { href: "/cv", label: "CV" },
+  { href: "/contact", label: "Contact" },
+];
+
+function isActive(href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname.startsWith(href);
+}
+---
+
+<nav>
+  <a href="/" aria-label="Inicio">DarioSF</a>
+  <ul>
+    {links.map(l => (
+      <li>
+        <a href={l.href} aria-current={isActive(l.href) ? "page" : undefined}>
+          {l.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  nav { display:flex; justify-content:space-between; align-items:center; padding:16px 0; }
+  ul { display:flex; gap:12px; list-style:none; padding:0; margin:0; }
+  a[aria-current="page"] { font-weight:700; text-decoration:underline; }
+</style>
