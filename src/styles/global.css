@@ -124,3 +124,54 @@ li{ margin: 6px 0; }
 .btn:hover{
   border-color: color-mix(in srgb, var(--border) 40%, var(--text));
 }
+
+/* ---------- Badges / Chips ---------- */
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top: 10px;
+}
+
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+
+/* Status badge */
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  white-space: nowrap;
+}
+
+.status::before{
+  content:"";
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  background: var(--muted);
+}
+
+/* Subtle per-status colors (works in both themes) */
+.status--concept::before{
+  background: color-mix(in srgb, var(--muted) 60%, var(--accent));
+}
+.status--in-progress::before{
+  background: color-mix(in srgb, #f59e0b 70%, var(--accent)); /* amber-ish */
+}
+.status--completed::before{
+  background: color-mix(in srgb, #22c55e 70%, var(--accent)); /* green-ish */
+}
