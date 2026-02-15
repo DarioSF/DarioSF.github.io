@@ -1,16 +1,23 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const projects = await getCollection("projects");
+projects.sort((a, b) => b.data.date.localeCompare(a.data.date));
 ---
 
-<BaseLayout title="Projects | DarioSF">
+<BaseLayout title="Projects | DarioSF" description="Proyectos personales (en construcción)">
   <h1>Projects</h1>
-  <p>Lorem ipsum: aquí irá una descripción corta de tus proyectos aero/aero-computación.</p>
+  <p>Lorem ipsum: aquí irá una descripción breve orientada a aeroespacial/aerodinámica.</p>
 
-  <h2>Listado</h2>
   <ul>
-    <li>
-      <a href="/projects/cantegrity">CANtegrity</a>
-      <div><small>Tags: avionics, bus, reliability — Lorem ipsum</small></div>
-    </li>
+    {projects.map((p) => (
+      <li>
+        <a href={`/projects/${p.slug}`}>{p.data.title}</a>
+        <div><small>{p.data.date} · {p.data.status}</small></div>
+        <div><small>Tags: {p.data.tags.join(", ")}</small></div>
+        <p>{p.data.summary}</p>
+      </li>
+    ))}
   </ul>
 </BaseLayout>

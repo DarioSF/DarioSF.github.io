@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((p) => ({
+    params: { slug: p.slug },
+    props: { project: p },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+---
+
+<BaseLayout
+  title={`${project.data.title} | DarioSF`}
+  description={project.data.summary}
+>
+  <article>
+    <p><a href="/projects">← Volver a Projects</a></p>
+
+    <h1>{project.data.title}</h1>
+    <p>{project.data.summary}</p>
+
+    <p>
+      <small>
+        {project.data.date} · {project.data.status} · Tags: {project.data.tags.join(", ")}
+      </small>
+    </p>
+
+    <p>
+      {project.data.repoUrl ? <a href={project.data.repoUrl} target="_blank" rel="noopener">Repo</a> : null}
+      {project.data.demoUrl ? <span> · <a href={project.data.demoUrl} target="_blank" rel="noopener">Demo</a></span> : null}
+    </p>
+
+    <hr />
+
+    <Content />
+  </article>
+</BaseLayout>
+
+<style>
+  article { max-width: 820px; }
+  hr { margin: 24px 0; }
+</style>
