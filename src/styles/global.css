@@ -175,3 +175,50 @@ li{ margin: 6px 0; }
 .status--completed::before{
   background: color-mix(in srgb, #22c55e 70%, var(--accent)); /* green-ish */
 }
+
+/* ---------- Figures (journal style) ---------- */
+figure{
+  margin: 18px 0;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+
+figure img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+figcaption{
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---------- Tables (optional, but useful for results) ---------- */
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+th, td{
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+th{
+  font-family: var(--font-sans);
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+}
+
+tr:last-child td{ border-bottom: none; }

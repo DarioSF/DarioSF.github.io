@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectMeta from "../../components/ProjectMeta.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -30,24 +31,7 @@ const statusLabel = {
     <header class="head">
       <h1>{project.data.title}</h1>
       <p class="muted">{project.data.summary}</p>
-
-      <div class="meta">
-        <span class="muted">{project.data.date}</span>
-        <span class={`status status--${project.data.status}`}>
-          {statusLabel[project.data.status]}
-        </span>
-      </div>
-
-      <div class="chips">
-        {project.data.tags.map((t) => (
-          <span class="chip">{t}</span>
-        ))}
-      </div>
-
-      <p class="links">
-        {project.data.repoUrl ? <a href={project.data.repoUrl} target="_blank" rel="noopener">Repo</a> : null}
-        {project.data.demoUrl ? <span> · <a href={project.data.demoUrl} target="_blank" rel="noopener">Demo</a></span> : null}
-      </p>
+      <ProjectMeta project={project} statusLabel={statusLabel} />
     </header>
 
     <hr />

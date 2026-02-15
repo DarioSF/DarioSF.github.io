@@ -1,0 +1,53 @@
+---
+const { project, statusLabel } = Astro.props;
+
+const label = statusLabel ?? {
+  "concept": "Concept",
+  "in-progress": "In progress",
+  "completed": "Completed",
+};
+---
+
+<section class="card meta-card" aria-label="Project metadata">
+  <div class="row">
+    <div>
+      <div class="k muted">Date</div>
+      <div class="v">{project.data.date}</div>
+    </div>
+
+    <div>
+      <div class="k muted">Status</div>
+      <div class={`status status--${project.data.status}`}>
+        {label[project.data.status]}
+      </div>
+    </div>
+  </div>
+
+  <div class="k muted">Tags</div>
+  <div class="chips">
+    {project.data.tags.map((t: unknown) => <span class="chip">{t}</span>)}
+  </div>
+
+  {(project.data.repoUrl || project.data.demoUrl) && (
+    <>
+      <div class="k muted" style="margin-top:12px;">Links</div>
+      <div class="links">
+        {project.data.repoUrl ? <a href={project.data.repoUrl} target="_blank" rel="noopener">Repo</a> : null}
+        {project.data.demoUrl ? <a href={project.data.demoUrl} target="_blank" rel="noopener">Demo</a> : null}
+      </div>
+    </>
+  )}
+</section>
+
+<style>
+  .meta-card{ margin: 14px 0 22px; }
+  .row{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-bottom: 12px;
+  }
+  .k{ font-size: .85rem; margin-bottom: 4px; }
+  .v{ font-size: 1rem; }
+  .links{ display:flex; gap: 12px; flex-wrap: wrap; }
+</style>
